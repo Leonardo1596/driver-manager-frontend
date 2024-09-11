@@ -21,7 +21,7 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.h2`
     font-size: 0.938rem;
-    color: #2E312D;
+    color: ${(props) => props.theme.text};
     font-weight: 500;
     margin: 0;
 `;
@@ -42,7 +42,8 @@ export const Form = styled.div`
 `;
 
 export const Input = styled.input`
-    background-color: #F6F6F6;
+    background-color: ${(props) => props.theme.inputBackground};
+    color: ${(props) => props.theme.inputTextColor};
     font-size: 0.75rem;
     border: none;
     outline: none;
@@ -52,6 +53,7 @@ export const Input = styled.input`
 
     &::placeholder {
         font-size: 0.75rem;
+        color: ${(props) => props.theme.placeholderColor};
     }
 `;
 
@@ -97,5 +99,5 @@ export const InfoContainer = styled.div`
 
 export const Info = styled.p`
     font-size: 0.813rem;
-    color: #2E312D;
+    color: ${(props) => props.theme.text};
 `;

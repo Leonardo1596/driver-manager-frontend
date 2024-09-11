@@ -1,16 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as C from './styles';
 import axios from 'axios';
 import RegisterContent from '../../components/RegisterContent/Index';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from '../../components/RegisterContent/themes';
 
 const Index = () => {
+    const [theme, setTheme] = useState('light');
+
+    useEffect(() => {
+        // Detect system preference
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        setTheme(systemTheme);
+
+        // Listener for system theme changes
+        const themeChangeListener = (e) => {
+            setTheme(e.matches ? 'dark' : 'light');
+        };
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', themeChangeListener);
+
+        return () => {
+            window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', themeChangeListener);
+        };
+    }, []);
+
+    const toggleTheme = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light');
+    };
+
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     function register(body) {
         setLoading(true);
         setErrorMessage('');
-
 
         if (body.confirmPassword !== body.password) {
             setLoading(false);
@@ -42,9 +66,11 @@ const Index = () => {
 
     return (
         <div>
-            <C.Register>
-                <RegisterContent register={register} errorMessage={errorMessage} setErrorMessage={setErrorMessage} loading={loading} />
-            </C.Register>
+            <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+                <C.Register>
+                    <RegisterContent register={register} errorMessage={errorMessage} setErrorMessage={setErrorMessage} loading={loading} theme={theme} />
+                </C.Register>
+            </ThemeProvider>
         </div>
     )
 }

@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 import * as C from './styles';
+import logoWhite from '../../assets/logo-driver-manager-white.png';
 import logoBlack from '../../assets/logo-driver-manager-black.png';
 import loadingGif from '../../assets/loading.gif';
 
-const Index = ({ register, errorMessage, setErrorMessage, loading }) => {
+const Index = ({ register, errorMessage, loading, theme }) => {
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -22,7 +23,7 @@ const Index = ({ register, errorMessage, setErrorMessage, loading }) => {
     return (
         <div>
             <C.LogoContainer>
-                <C.Logo src={logoBlack} />
+                <C.Logo src={theme === 'light' ? logoBlack : logoWhite} />
             </C.LogoContainer>
             <C.TitleContainer>
                 <C.Title>Crie a sua conta</C.Title>
@@ -33,7 +34,7 @@ const Index = ({ register, errorMessage, setErrorMessage, loading }) => {
                 <C.Input type="password" placeholder='Senha' ref={passwordRef} />
                 <C.Input type="password" placeholder='Confirmar Senha' ref={confirmPasswordRef} />
                 <C.Button onClick={handleButton}>
-                {loading ? <img src={loadingGif} /> : 'Criar conta'}
+                    {loading ? <img src={loadingGif} /> : 'Criar conta'}
                 </C.Button>
                 <C.ErrorContainer>
                     <C.Error>{errorMessage}</C.Error>

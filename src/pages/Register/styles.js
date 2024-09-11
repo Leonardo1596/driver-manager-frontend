@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Register = styled.div`
     font-family: "Roboto", sans-serif;
+    background-color: ${(props) => props.theme.background};
     width: 100vw;
     height: 100vh;
     display: flex;

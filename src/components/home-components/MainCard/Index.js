@@ -3,7 +3,7 @@ import * as C from './styles';
 import { FaEye, FaEyeSlash, FaEllipsis } from "react-icons/fa6";
 
 const Index = ({ value }) => {
-    const [eyeIsClosed, setEyeIsClosed] = useState(true);
+    const [eyeIsClosed, setEyeIsClosed] = useState(false);
 
     const toggleEyeIcon = () => {
         setEyeIsClosed(!eyeIsClosed);

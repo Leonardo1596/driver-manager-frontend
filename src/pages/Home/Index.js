@@ -55,11 +55,11 @@ const Index = () => {
 
         function getWeeklyReport() {
             const userId = localStorage.getItem('userId');
+            setSalaryValue('');
 
             axios.get(`https://driver-manager-backend.onrender.com/weekly-report/${userId}?startDate=${currentDate}`)
                 .then(response => {
                     // console.log(response.data);
-                    console.log('teste');
                     if (response.data.length === 0) {
                         getEntriesByDate();
                         return;

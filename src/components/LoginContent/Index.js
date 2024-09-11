@@ -14,7 +14,6 @@ const Index = ({ login, errorMessage, loading, theme }) => {
             email: emailRef.current.value,
             password: passwordRef.current.value
         };
-
         login(body);
     };
 
