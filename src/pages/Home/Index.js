@@ -12,6 +12,7 @@ const Index = () => {
     const [currentDate, setCurrentDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [salaryValue, setSalaryValue] = useState('');
+    const [goals, setGoals] = useState([]);
 
     useEffect(() => {
         // Detect system preference
@@ -43,7 +44,7 @@ const Index = () => {
         function getEntriesByDate() {
             const userId = localStorage.getItem('userId');
 
-            axios.get(`https://driver-manager-backend.onrender.com/report/entries/${userId}?startDate=${currentDate}&endDate=${endDate}`)
+            axios.get(`https://driver-manager-backend-rm41.onrender.com/report/entries/${userId}?startDate=${currentDate}&endDate=${endDate}`)
                 .then(response => {
                     // console.log(response.data);
                     setSalaryValue(response.data.totalLiquidGain.toFixed(2));
@@ -55,9 +56,9 @@ const Index = () => {
 
         function getWeeklyReport() {
             const userId = localStorage.getItem('userId');
-            setSalaryValue('');
+            // setSalaryValue('');
 
-            axios.get(`https://driver-manager-backend.onrender.com/weekly-report/${userId}?startDate=${currentDate}`)
+            axios.get(`https://driver-manager-backend-rm41.onrender.com/weekly-report/${userId}?startDate=${currentDate}`)
                 .then(response => {
                     // console.log(response.data);
                     if (response.data.length === 0) {
@@ -71,7 +72,21 @@ const Index = () => {
                     console.error(error);
                 });
         };
+
+        function getGoals() {
+            const userId = localStorage.getItem('userId');
+
+            axios.get(`https://driver-manager-backend-rm41.onrender.com/goals/${userId}`)
+                .then(response => {
+                    // console.log(response.data);
+                    setGoals(response.data.retrievedGoals);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        };
         getWeeklyReport();
+        getGoals();
     }, [currentDate]);
 
     return (
@@ -81,7 +96,7 @@ const Index = () => {
                     <Navbar theme={theme} />
                     <C.ColorBlock>
                         <Weeks getCurrentDate={getCurrentDate} />
-                        <MainCard value={salaryValue ? salaryValue : '0.00'} />
+                        <MainCard value={salaryValue ? salaryValue : '0.00'} goals={goals} />
                     </C.ColorBlock>
                 </C.Home>
             </ThemeProvider>

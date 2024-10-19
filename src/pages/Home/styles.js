@@ -10,6 +10,7 @@ export const Home = styled.div`
 export const ColorBlock = styled.div`
     height: 150px;
     background-color: ${(props) => props.theme.colorBlock};
+    padding: 0 20px;
     position: relative;
     z-index: 500;
 `;
